@@ -1,0 +1,29 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: azure;
+}
+
+#basic {
+    text-align: center;
+}
+
+p {
+    font-size: 20px;
+}
+
+button {
+    background-color: rgb(83, 118, 14);
+    padding: 2px 16px;
+    border-radius: 6px;
+    box-shadow: unset;
+}
+
+button:hover {
+    background-color: rgb(48, 68, 8);
+    padding: 4px 20px;
+}
+
+a {
+    text-decoration: none;
+    color: white
+}
