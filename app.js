@@ -9,4 +9,8 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/static/index.html');
 })
 
+app.get('/.well-known/pki-validation/', (req, res) => {
+    res.sendFile(__dirname + 'static/fileauth.txt');
+})
+
 app.listen(3005);
