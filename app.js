@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/.well-known/pki-validation/fileauth.txt', (req, res) => {
-    res.sendFile(__dirname + 'static/fileauth.txt');
+    res.sendFile(__dirname + '/static/fileauth.txt');
 })
 
 app.listen(3005);
