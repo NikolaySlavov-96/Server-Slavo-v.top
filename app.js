@@ -3,8 +3,8 @@ const express = require('express');
 const fs = require('fs');
 
 const options = {
-    key: fs.readFileSync('../key.pem'),
-    cert: fs.readFileSync('../cert.pem')
+    key: fs.readFileSync('../key-PRK.pem'),
+    cert: fs.readFileSync('../cert-CRT.pem')
 }
 
 const app = express();
