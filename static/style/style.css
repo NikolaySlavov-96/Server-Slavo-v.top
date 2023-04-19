@@ -3,7 +3,7 @@ body {
     background-color: azure;
 }
 
-#basic {
+#home-section {
     text-align: center;
 }
 
@@ -26,4 +26,8 @@ button:hover {
 a {
     text-decoration: none;
     color: white
+}
+
+#upload-section {
+
 }

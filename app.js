@@ -1,25 +1,29 @@
 const https = require('https');
 const express = require('express');
 const fs = require('fs');
+const router = require('./config/router');
+const database = require('./config/database');
+const exprConf = require('./config/exprConf');
 
+const PORT = 443;
+
+/*
 const options = {
     key: fs.readFileSync('../key-PRK.pem'),
     cert: fs.readFileSync('../cert-CRT.pem')
 }
+*/
 
-const app = express();
+start();
 
-https.createServer(options, app).listen(80, () => console.log('Server listen'));
+async function start() {
 
-app.use(express.urlencoded({extended: false}));
-app.use('/static', express.static('static'));
+    const app = express();
+    // https.createServer(options, app).listen(PORT, () => console.log('Server listen'));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/static/index.html');
-})
+    exprConf(app);
+    await database(app);
+    router(app);
 
-app.get('/.well-known/pki-validation/fileauth.txt', (req, res) => {
-    res.sendFile(__dirname + '/static/fileauth.txt');
-})
-
-// app.listen(3000);
+    app.listen(3000);
+}
