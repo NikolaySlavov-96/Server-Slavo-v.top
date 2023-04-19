@@ -13,7 +13,6 @@ module.exports = (app) => {
     app.set('view engine', '.hbs');
 
     app.use(express.urlencoded({ extended: false }));
-    // app.use(fileUpload()); //not limit for image 
     app.use(fileUpload({
         limits: {
             fileSize: 10000000,

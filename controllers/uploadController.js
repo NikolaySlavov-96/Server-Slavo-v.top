@@ -19,11 +19,13 @@ uploadController.post('/upload', async (req, res) => {
     if (!image) {
         return res.sendStatus(400);
     }
-
+    
     const extention = image.mimetype.split('/')[1];
     const imageData = await createImageName({ nameImage: name }, extention);
-    // image.mv(__dirname + '/static/upload/' + image.name); // origin type
-    image.mv(__dirname + '/upload/' + imageData + '.' + extention);
+
+    // const pathName = `${__dirname}/../static/${imageData}.${extention}`; // save in folder static
+    const pathName = `${__dirname}/../../upload/${imageData}.${extention}`; // save out directory server
+    image.mv(pathName);
 
     res.sendStatus(200);
 });
