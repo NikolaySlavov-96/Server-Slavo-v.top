@@ -10,6 +10,13 @@
 </head>
 
 <body>
+    {{#if errors}}
+        <div id="error-section">
+            {{#each errors}}
+                <p>{{this}}</p>
+            {{/each}}
+        </div>
+    {{/if}}
     {{{body}}}
 </body>
 
