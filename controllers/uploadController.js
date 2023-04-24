@@ -1,6 +1,5 @@
 const uploadController = require('express').Router();
-const fs = require('fs');
-const { createImageName } = require('../services/imageServide');
+const { createImageName, removeImageName } = require('../services/imageServide');
 const { parserError } = require('../util/parser');
 const { hasUser } = require('../middleware/guard');
 
@@ -14,12 +13,10 @@ uploadController.post('/upload', hasUser(), async (req, res) => {
 
     try {
         if (!req.files) {
-            // return res.sendStatus(400);
             throw new Error('Not upload file')
         }
 
         if (!req.body) {
-            // return res.sendStatus(400);
             throw new Error('Not current Name');
         }
         const { image } = req.files;
@@ -28,19 +25,43 @@ uploadController.post('/upload', hasUser(), async (req, res) => {
         const extention = image.mimetype.split('/')[1];
         const imageData = await createImageName({ nameImage: name }, extention);
 
-        // const pathName = `${__dirname}/../static/${imageData}.${extention}`; // save in folder static
-        const pathName = `${__dirname}/../../upload/${imageData}.${extention}`; // save out directory server
-        image.mv(pathName);
+        image.mv(imageData);
 
         res.sendStatus(200);
-
+        // res.status(200).redirect('/second/upload');
     } catch (err) {
         res.render('upload', {
             title: 'Upload Form',
             errors: parserError(err),
         });
     }
+});
 
+uploadController.get('/remove', hasUser(), (req, res) => {
+    res.render('remove', {
+        title: 'Remove Page'
+    })
+});
+
+uploadController.post('/remove', hasUser(), async (req, res) => {
+    const body = req.body;
+    try {
+        if (body.name == '') {
+            throw new Error('Field name is required');
+        }
+
+        await removeImageName(body.name);
+        res.redirect('/second/upload');
+    } catch (err) {
+        const message = 'Not Found Image';
+        res.render('remove', {
+            title: 'Remove Page',
+            body: {
+                nameFile: body.name,
+                errors: message,
+            }
+        })
+    }
 });
 
 module.exports = uploadController;

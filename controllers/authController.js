@@ -10,6 +10,10 @@ authController.get('/register', isGues(), (req, res) => {
     })
 });
 
+authController.post('/register', (req, res) => {
+    res.statusCode(404);
+})
+/*
 authController.post('/register',
     body('username').isEmpty(),
     body('password').isEmpty(),
@@ -40,6 +44,7 @@ authController.post('/register',
             })
         }
     });
+*/
 
 authController.get('/login', isGues(), (req, res) => {
     res.render('login', {

@@ -22,6 +22,7 @@ module.exports = (app) => {
         abortOnLimit: true
     }));
     app.use('/static', express.static('static'));
+    app.use('/upload', express.static('upload'));
     app.use(cookieParser());
     app.use(session());
 }
