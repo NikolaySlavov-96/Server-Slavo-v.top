@@ -1,6 +1,8 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
+const session = require('../middleware/session');
 
 
 module.exports = (app) => {
@@ -20,5 +22,6 @@ module.exports = (app) => {
         abortOnLimit: true
     }));
     app.use('/static', express.static('static'));
-    
+    app.use(cookieParser());
+    app.use(session());
 }

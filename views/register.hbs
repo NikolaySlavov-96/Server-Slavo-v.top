@@ -1,0 +1,14 @@
+<section id="register-form-section">
+    <form action="/auth/register" method="post">
+        <h3>Registration Form</h3>
+        <label>Email:</label>
+        <input type="email" name="email" value="{{body.email}}">
+        <label>Username:</label>
+        <input type="text" name="username" class="box" value="{{body.username}}">
+        <label>Password:</label>
+        <input type="password" class="box" name="password">
+        <label>Re-Password:</label>
+        <input type="password" class="box" name="repassword">
+        <input type="submit" value="Register" class="btn">
+    </form>
+</section>

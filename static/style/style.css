@@ -36,11 +36,9 @@ a {
     background-color: rgba(91, 70, 65, 0.5);
 }
 
-#upload-section form {
+#upload-section form {}
 
-}
-
-#upload-section form label { 
+#upload-section form label {
     display: block;
     margin: 10px;
     font-size: 20px;
@@ -73,4 +71,38 @@ a {
 
 #error-section p {
     margin: 0;
+}
+
+#register-form-section,
+#login-form-section {
+    border: 2px solid black;
+    width: 50%;
+    padding: 20px;
+    margin: 10px;
+}
+
+
+#register-form-section form,
+#login-form-section form {
+    padding-left: 30%;
+}
+
+#register-form-section input,
+#login-form-section input {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#error-page {
+    text-align: center;
+    background-color: beige;
+    padding: 60px;
+}
+
+#error-page h1 {
+    font-size: 34px;
+}
+
+#error-page h2 {
+    font-size: 30px;
 }
