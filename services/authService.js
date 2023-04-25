@@ -53,7 +53,7 @@ function createSession({ _id, username, email, role }) {
         role
     }
 
-    const token = jwt.sign(payload, JWT_SECRET);
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
     return token;
 }
 
