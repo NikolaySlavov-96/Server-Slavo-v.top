@@ -1,7 +1,7 @@
 const uploadController = require('express').Router();
 const { createImageName, removeImageName } = require('../services/imageServide');
 const { parserError } = require('../util/parser');
-const { hasUser } = require('../middleware/guard');
+const { hasUser, hasRole } = require('../middleware/guard');
 
 uploadController.get('/upload', hasUser(), (req, res) => {
     res.render('upload', {
@@ -43,7 +43,7 @@ uploadController.get('/remove', hasUser(), (req, res) => {
     })
 });
 
-uploadController.post('/remove', hasUser(), async (req, res) => {
+uploadController.post('/remove', hasUser(), hasRole('admin'), async (req, res) => {
     const body = req.body;
     try {
         if (body.name == '') {

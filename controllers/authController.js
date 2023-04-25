@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator');
-const { register, login } = require('../services/authService');
-const { isGues } = require('../middleware/guard');
+const { register, login, addRole } = require('../services/authService');
+const { isGues, hasUser } = require('../middleware/guard');
 
 const authController = require('express').Router();
 
@@ -13,6 +13,7 @@ authController.get('/register', isGues(), (req, res) => {
 authController.post('/register', (req, res) => {
     res.statusCode(404);
 })
+
 /*
 authController.post('/register',
     body('username').isEmpty(),
@@ -45,6 +46,11 @@ authController.post('/register',
         }
     });
 */
+
+authController.get('/add', hasUser(), async (req, res) => {
+    await addRole(req.user._id, 'admin');
+    res.redirect('/first');
+})
 
 authController.get('/login', isGues(), (req, res) => {
     res.render('login', {

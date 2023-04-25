@@ -39,11 +39,18 @@ async function login(username, password) {
     return token;
 }
 
-function createSession({ _id, username, email }) {
+async function addRole(id, role) {
+    const user = await User.findById(id);
+    user.role.push(role);
+    await user.save();
+}
+
+function createSession({ _id, username, email, role }) {
     const payload = {
         _id,
         username,
-        email
+        email,
+        role
     }
 
     const token = jwt.sign(payload, JWT_SECRET);
@@ -57,5 +64,6 @@ function veryToken(token) {
 module.exports = {
     register,
     login,
-    veryToken
+    veryToken,
+    addRole
 }
