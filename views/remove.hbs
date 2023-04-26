@@ -3,4 +3,9 @@
         <label>Name: <input type="text" name="name" value="{{body.nameFile}}" /></label>
         <button type="submit">Submit</button>
     </form>
+    <main class="remove-picture">
+        {{#each images}}
+            {{> image}}
+        {{/each}}
+    </main>
 </section>

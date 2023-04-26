@@ -1,5 +1,5 @@
 const uploadController = require('express').Router();
-const { createImageName, removeImageName } = require('../services/imageServide');
+const { createImageName, removeImageName, getByOwnerId, removeImageByImageName } = require('../services/imageServide');
 const { parserError } = require('../util/parser');
 const { hasUser, hasRole } = require('../middleware/guard');
 
@@ -23,7 +23,7 @@ uploadController.post('/upload', hasUser(), async (req, res) => {
         const { name } = req.body;
 
         const extention = image.mimetype.split('/')[1];
-        const imageData = await createImageName({ nameImage: name }, extention);
+        const imageData = await createImageName(name, extention, req.user._id);
 
         image.mv(imageData);
 
@@ -37,9 +37,11 @@ uploadController.post('/upload', hasUser(), async (req, res) => {
     }
 });
 
-uploadController.get('/remove', hasUser(), (req, res) => {
+uploadController.get('/remove', hasUser(), async (req, res) => {
+    const images = await getByOwnerId(req.user._id);
     res.render('remove', {
-        title: 'Remove Page'
+        title: 'Remove Page',
+        images,
     })
 });
 
@@ -63,5 +65,10 @@ uploadController.post('/remove', hasUser(), hasRole('admin'), async (req, res) =
         })
     }
 });
+
+uploadController.get('/remove/:id', async (req, res) => {
+    await removeImageByImageName(req.params.id);
+    res.redirect('/second/upload');
+})
 
 module.exports = uploadController;
