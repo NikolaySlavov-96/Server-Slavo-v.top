@@ -1,17 +1,12 @@
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const { sendFromInfoEmail, sendFromNoReplyEmail } = require("../services/sendEmailService");
 
+const registerVerification = async () => {
 
-const transporter = nodemailer.createTransport({
-    host: 'buki.superhosting.bg',
-    port: 465,
-    auth: {
-        user: process.env.EMAIL_Name ,
-        pass: process.env.EMAIL_Password
-    }
-});
+    const data = await sendFromInfoEmail('gogle.bg.napster@gmail.com', 'hello', 'hello');
+    console.log(data, 'controller');
+}
 
 
 module.exports = {
-    transporter
+    registerVerification,
 }
